@@ -1,0 +1,29 @@
+h1#titolEquip {
+    width: 50%;
+    color: red;
+    border: solid red 1px;
+    margin: 10px auto;
+    text-align:center;
+    padding:10px;
+    background-color:white;
+}
+
+.paragrafEquip{
+    width: 80%;
+    border: solid black 1px;
+    margin: 10px auto;
+    text-align:center;
+    padding:10px;
+    background-color:#f2e7c3;
+}
+
+.imatgeEquip{
+    width: 400px;
+    margin: 10px;
+}
+
+body{
+    background-color:#EEE;
+}
+   
+   

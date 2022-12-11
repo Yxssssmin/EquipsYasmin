@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Equips{% endblock %}
+{% block body %}
+    <h1>Fitxa d'equip</h1>
+    {% if equip %}
+    {{ include ('dades_equip.html.twig', { 'equip': equip }) }}
+    {% else %}
+        <p>Equip no trobat</p>
+    {% endif %}
+{% endblock %}

@@ -2,8 +2,9 @@
 namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class EquipsController {
+class EquipsController extends AbstractController {
 
     private $equips = array(
     array("codi" => "1", "nom" => "Equip Roig", "cicle" => "DAW","curs" => "22/23" , "membres" => "Elena, Vicent, Joan, Maria"),
@@ -19,14 +20,11 @@ class EquipsController {
             return $equip["codi"] == $codi;
         });
 
-        if(count($resultat) > 0) {
-            $resposta = "";
-            $resultat = array_shift($resultat); #torna el primer element
-            $resposta .= "<ul><li>" . $resultat["nom"] . "</li>" . "<li>" . $resultat["cicle"] . "</li>" . 
-            "<li>" . $resultat["curs"] . "</li>" . "<li>" . $resultat["membres"] . "</li></ul>";
-
-            return new Response("<html><body>$resposta</body></html>");
-        } else return new Response("Contacte no trobat");
+        if(count($resultat) > 0)
+        return $this->render('dades_equip.html.twig',array('equip' => array_shift($resultat)));
+        else 
+        return $this->render('dades_equip.html.twig',array('equip' => NULL));
+        
     }
 
     #[Route('/equip/{text}', name:'buscar_equip')]
@@ -36,15 +34,7 @@ class EquipsController {
             return strpos($equip["nom"], $text) !== FALSE;
         });
 
-        $resposta ="";
-        if(count($resultat) > 0) {
-            foreach ($resultat as $equip)
-            $resposta .= "<ul><li>" . $equip["nom"] . "</li>" . 
-            "<li>" . $equip["cicle"] . "</li>" . 
-            "<li>" . $equip["curs"] . "</li>" . 
-            "<li>" . $equip["membres"] . "</li></ul>";
-            return new Response("<html><body>" . $resposta . "</body></hmtl>");
-        } else return new Response("No s'ha trobat l'equip");
+        return $this->render('llista_equips.html.twig', array('equips' => $resultat));
     }
     
 }

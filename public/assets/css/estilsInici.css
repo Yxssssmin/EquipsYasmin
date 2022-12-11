@@ -1,0 +1,28 @@
+h1#titolInici {
+    width: 50%;
+    color: red;
+    border: solid red 1px;
+    margin: 10px auto;
+    text-align:center;
+    padding:10px;
+    background-color:white;
+}
+   
+p#paragrafInici{
+    width: 80%;
+    border: solid black 1px;
+    margin: 10px auto;
+    text-align:center;
+    padding:10px;
+    background-color:#f2e7c3;
+}
+
+.imatgeInici{
+    width: 400px;
+    margin: 10px;
+}
+
+body{
+    background-color:#DDD;
+}
+   

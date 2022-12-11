@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Dades Equips{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsEquip.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <h1 id="titolEquip">Projecte Symfony Equips 2n DAW</h1>
+    <p class="paragrafEquip">Pàgina d'inici</p>
+    <img class="imatgeEquip" src="{{ asset('imgs/imatge.png') }}" />
+{% endblock %}
