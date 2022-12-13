@@ -3,15 +3,15 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\ServeiDadesEquips;
 
 class EquipsController extends AbstractController {
 
-    private $equips = array(
-    array("codi" => "1", "nom" => "Equip Roig", "cicle" => "DAW","curs" => "22/23" , "membres" => "Elena, Vicent, Joan, Maria"),
-    array("codi" => "2", "nom" => "Equip Taronja", "cicle" => "DAW","curs" => "22/23" , "membres" => "Marina, Marcos, Pablo, Yasmin"),
-    array("codi" => "3", "nom" => "Equip Verd", "cicle" => "DAW","curs" => "22/23" , "membres" => "Fran, Pepe, Jose, Jaume"),
-    array("codi" => "4", "nom" => "Equip Blau", "cicle" => "DAW","curs" => "22/23" , "membres" => "Sergi, Miguel, Juan, Marta"),
-    );
+    private $equips;
+    public function __construct(ServeiDadesEquips $dades) {
+        $this->equips = $dades->get();
+    }
+
 
     #[Route('/equip/{codi<\d+>?1}',name:'dades_equip')]
     public function dades($codi) {

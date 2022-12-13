@@ -5,8 +5,28 @@
 {% endblock %}
 
 {% block body %}
+    <br><br><br><br>
     <h1 id="titolInici">Projecte Symfony Equips 2n DAW</h1>
-    <p class="paragrafInici">Inici programa gestió d'equips i membres del projecte 2n DAW.</p>
-    <img class="imatgeInici" src="{{ asset('imgs/imatge.png') }}" />
+    <div class="primer">
+        <p>Inici programa gestió d'equips i membres del projecte 2n DAW.</p>
+        <a href="{{ path('dades_equip') }}"><img class="imatgeInici" src="{{ asset('./assets/img/equipo.png') }}" /></a>
+   </div>
+   <div>
+        <h1 id="titolLlista">Llistat d'equips</h1>
+   </div>
+   <div class="segundo">
+        <div>
+            <p><a href="">Equip Roig</p>
+        </div>
+        <div>
+            <p><a href="">Equip Verd</p>
+        </div>
+        <div>
+            <p><a href="">Equip Groc</p>
+        </div>
+        <div>
+            <p><a href="">Equip Blau</p>
+        </div>
+   </div>
 {% endblock %}
 

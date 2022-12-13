@@ -1,11 +1,32 @@
 {% extends 'base.html.twig' %}
-{% block title %}Dades Equips{% endblock %}
+{% block title %}Dades Equip{% endblock %}
 {% block stylesheets %}
-    <link href="{{ asset('./assets/css/estilsEquip.css') }}" rel="stylesheet" />
+    <link href="{{ asset('./assets/css/estilsEquips.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
+    <br><br><br><br>
     <h1 id="titolEquip">Projecte Symfony Equips 2n DAW</h1>
-    <p class="paragrafEquip">Pàgina d'inici</p>
-    <img class="imatgeEquip" src="{{ asset('imgs/imatge.png') }}" />
+    <div class="paragrafEquip">
+        <p>Pàgina d'inici</p>
+        <img class="imatgeEquip" src="{{ asset('./assets/img/feliz.png') }}" width="50px" heigth="50px" />
+    </div>
+    <div class="equipos">
+    {% if equip %}
+        <ul>
+            <li><strong>Codi</strong>: {{ equip.codi }}</li>
+            <li><strong>Nom</strong>: {{ equip.nom }}</li>
+            <li><strong>Cicle</strong>: {{ equip.cicle }}</li>
+            <li><strong>Curs</strong>: {{ equip.curs }}</li>
+            <li><strong>Membres</strong>: {{ equip.membres }}</li>
+        </ul>
+    {% else %}
+        <img src="{{ asset('./assets/img/triste.png') }}" />
+        <p style="color:red;">No s'han trobat equips</p>
+    {% endif %}
+    </div>
+    <div class="footer">
+        <img src="{{ asset('./assets/img/logocasa.png') }}" width="40px heigth="70px" /><a href="{{ path('inici') }}">Torna a l'inici</a>
+    </div>
+
 {% endblock %}

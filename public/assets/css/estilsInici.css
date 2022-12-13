@@ -24,5 +24,33 @@ p#paragrafInici{
 
 body{
     background-color:#DDD;
+
 }
+
+.primer {
+    width: 80%;
+    border: solid black 1px;
+    margin: 10px auto;
+    text-align:center;
+    padding:10px;
+    background-color:#f2e7c3;
+}
+
+img{
+    display:block;
+    margin:auto;
+}
+
+h1#titolLlista {
+    width: 50%;
+    color: rgb(4, 0, 255);
+    border: solid rgb(0, 81, 255) 1px;
+    margin: 10px auto;
+    text-align:center;
+    padding:10px;
+    background-color:#f2e7c3;
+}
+
+
+
    

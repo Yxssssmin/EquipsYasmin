@@ -1,12 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block title %}Equips{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsEquips.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
-    <h1>Llistat de equips</h1>
+    <h1 id="titolEquip">Dades Equip</h1>
+    <div class="equipos">
     {% if equips %}
         {% for equip in equips %}
-        {{ include ('dades_equip.html.twig', { 'equip': equip }) }}
+        <ul>
+            <li><strong>Codi</strong>: {{ equip.codi }}</li>
+            <li><strong>Nom</strong>: {{ equip.nom }}</li>
+            <li><strong>Cicle</strong>: {{ equip.cicle }}</li>
+            <li><strong>Curs</strong>: {{ equip.curs }}</li>
+            <li><strong>Membres</strong>: {{ equip.membres }}</li>
+        </ul>
         {% endfor %}
     {% else %}
-        <p>No s'han trobat equips</p>
+        <img src="{{ asset('./assets/img/triste.png') }}" />
+        <p style="color:red;">No s'han trobat equips</p>
     {% endif %}
+    </div>
 {% endblock %}
