@@ -19,21 +19,17 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Tests/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-App\Controller\IniciController:
-    arguments:
-        $formatData: '%format_data_defecte%'
-        bind:
-            $logger: '@monolog.logger.request'
-    parameters:
-    locale: 'en'
-    format_data_defecte: 'd/m/y H:i:s'
+    App\Controller\IniciController:
+        arguments:
+            $formatData: '%format_data_defecte%'
+            bind:
 
-App\Controller\:
-    resorce: '../src/Controller'
-    tags: ['controller.service_arguments']
-    bind:
-        $logger: '@monolog.logger.request'
-        $dadesEquips: '@App\Service\ServeiDadesEquips'
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+        bind:
+            $dadesEquips: '@App\Service\ServeiDadesEquips'       

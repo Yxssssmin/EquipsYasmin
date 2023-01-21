@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Equips{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsEquips.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<br><br>
+    {% if success %}
+    <h1 id="titolEquip">Projecte Symfony Equips 2n DAW</h1>
+    <div class="paragrafEquip">
+        <img class="imatgeEquip" src="{{ asset('./assets/img/imagen1.png') }}" width="50px" heigth="50px" />
+    </div>        
+    <div class="dadesMultiplesEquips">
+       {% for equip in equips %}
+                <ul>
+                    <li><b>Id:</b> {{ equip.id }}</li>
+                    <li><b>Nom:</b> {{ equip.nom }}</li>
+                    <li><b>Cicle:</b> {{ equip.cicle }}</li>
+                    <li><b>Curs:</b> {{ equip.curs }}</li>
+                    <li><b>Nota:</b> {{ equip.nota }}</li>
+                    <li><b>Imatge:</b><br>
+                        <img class="imatgeEquip" src="{{ asset('img/' ~ equip.imatge) }}" alt="equip image">
+                    </li>
+                </ul>
+        {% endfor %}
+    </div>
+    
+    {% else %}
+        <h1 id="titolEquip">Error en la inserció dels equips: </h1>
+        <div class="paragrafEquip">
+            <img src="{{ asset('./assets/img/triste.png') }}" />
+            <span class="blocError">
+                {{ error }}
+            </span>
+        </div>
+    {% endif %}
+
+    <div class="footer">
+        <img src="{{ asset('./assets/img/logocasa.png') }}" width="40px heigth="70px" /><a href="{{ path('inici') }}">Torna a l'inici</a>
+    </div>
+    
+{% endblock %}

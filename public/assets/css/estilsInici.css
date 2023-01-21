@@ -3,27 +3,27 @@ h1#titolInici {
     color: red;
     border: solid red 1px;
     margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:white;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
 }
-   
-p#paragrafInici{
+
+p#paragrafInici {
     width: 80%;
     border: solid black 1px;
     margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:#f2e7c3;
+    text-align: center;
+    padding: 10px;
+    background-color: #f2e7c3;
 }
 
-.imatgeInici{
+.imatgeInici {
     width: 400px;
     margin: 10px;
 }
 
-body{
-    background-color:#DDD;
+body {
+    background-color: #DDD;
 
 }
 
@@ -31,14 +31,14 @@ body{
     width: 80%;
     border: solid black 1px;
     margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:#f2e7c3;
+    text-align: center;
+    padding: 10px;
+    background-color: #f2e7c3;
 }
 
-img{
-    display:block;
-    margin:auto;
+img {
+    display: block;
+    margin: auto;
 }
 
 h1#titolLlista {
@@ -46,11 +46,60 @@ h1#titolLlista {
     color: rgb(4, 0, 255);
     border: solid rgb(0, 81, 255) 1px;
     margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:#f2e7c3;
+    text-align: center;
+    padding: 10px;
+    background-color: #f2e7c3;
 }
 
 
+.segundo {
+    width: 80%;
+    border: solid black 1px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #f2e7c3;
+}
 
-   
+.llistaInterna {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.llistaInterna li {
+    flex-grow: 1;
+    flex-basis: 0;
+    list-style: none;
+    border: 1px solid black;
+    color: green;
+    width: 15em;
+    text-align: center;
+    background-color: #efd19b;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+h2#subtitolInici {
+    width: 50%;
+    color: blue;
+    border: solid red 1px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+}
+
+p#paragrafInici,
+.blocText {
+    width: 80%;
+    border: solid black 1px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #f2e7c3;
+}
+
+.urlEquip {
+    color: #255731;
+}

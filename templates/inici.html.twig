@@ -1,32 +1,24 @@
 {% extends 'base.html.twig' %}
-{% block title %}Equips{% endblock %}
 {% block stylesheets %}
     <link href="{{ asset('./assets/css/estilsInici.css') }}" rel="stylesheet" />
 {% endblock %}
+{% block title %}Inici{% endblock %}
 
 {% block body %}
     <br><br><br><br>
     <h1 id="titolInici">Projecte Symfony Equips 2n DAW</h1>
-    <div class="primer">
+    <div class="paragrafInici">
         <p>Inici programa gestió d'equips i membres del projecte 2n DAW.</p>
-        <a href="{{ path('dades_equip') }}"><img class="imatgeInici" src="{{ asset('./assets/img/equipo.png') }}" /></a>
+        <a href="{{ path('dades_equip', {'codi':3}) }}"><img class="imatgeInici" src="{{ asset('./assets/img/equipo.png') }}" /></a>
    </div>
-   <div>
-        <h1 id="titolLlista">Llistat d'equips</h1>
-   </div>
-   <div class="segundo">
-        <div>
-            <p><a href="">Equip Roig</p>
-        </div>
-        <div>
-            <p><a href="">Equip Verd</p>
-        </div>
-        <div>
-            <p><a href="">Equip Groc</p>
-        </div>
-        <div>
-            <p><a href="">Equip Blau</p>
-        </div>
-   </div>
+
+    <h2 id="subtitolInici">Llistat d'equips</h2>
+    <div class="blocText">
+        <ul class="llistaInterna">
+            {% for equip in equips %}
+                <li><b><a class="urlEquip" href="{{ path('dades_equip', {'codi': equip.id}) }}">{{ equip.nom }}</a></b></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 

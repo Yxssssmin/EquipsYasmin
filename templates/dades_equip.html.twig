@@ -6,25 +6,31 @@
 
 {% block body %}
     <br><br><br><br>
-    <h1 id="titolEquip">Projecte Symfony Equips 2n DAW</h1>
-    <div class="paragrafEquip">
-        <p>Pàgina d'inici</p>
-        <img class="imatgeEquip" src="{{ asset('./assets/img/feliz.png') }}" width="50px" heigth="50px" />
-    </div>
-    <div class="equipos">
     {% if equip %}
-        <ul>
-            <li><strong>Codi</strong>: {{ equip.codi }}</li>
-            <li><strong>Nom</strong>: {{ equip.nom }}</li>
-            <li><strong>Cicle</strong>: {{ equip.cicle }}</li>
+        <h1 id="titolEquip"><strong> Dades Equip </strong>{{ equip.id }}</h1>
+        <div class="paragrafEquip">
+            <p>Projecte 2n DAW</p>
+            <p style= color:red;> Imatge equip </p>
+            {% if equip %}
+            <img class="imatgeEquip" src="{{ asset("img/" ~ equip.imatge) }}" width="50px" heigth="50px" />
+            {% endif %}    
+    </div>
+    <div class="paragrafEquip">
+        <ul class="dadesEquips">
+            <li><strong class="titleEquip">{{ equip.nom }}</strong></li>
+            <li><strong>Codi</strong>: {{ equip.id }}</li>
             <li><strong>Curs</strong>: {{ equip.curs }}</li>
-            <li><strong>Membres</strong>: {{ equip.membres }}</li>
+            <li><strong>Cicle</strong>: {{ equip.cicle }}</li>
+            <li><strong>Nota</strong>: {{ equip.nota }}</li>
         </ul>
+    </div>
     {% else %}
+    <div class="paragrafEquip">
         <img src="{{ asset('./assets/img/triste.png') }}" />
         <p style="color:red;">No s'han trobat equips</p>
-    {% endif %}
     </div>
+    {% endif %}
+
     <div class="footer">
         <img src="{{ asset('./assets/img/logocasa.png') }}" width="40px heigth="70px" /><a href="{{ path('inici') }}">Torna a l'inici</a>
     </div>

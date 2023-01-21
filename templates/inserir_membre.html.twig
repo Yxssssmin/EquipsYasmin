@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/estilsMembres.css') }}">
+{% endblock %}
+{% block title %}Equips{% endblock %}
+{% block body %}
+    {% if success %}
+        <h1 id="titolMembre">Membre inserit correctament</h1>
+        <p class="paragrafMembre">
+            <img src="{{ asset('img/imagen1.png') }}" alt="membre image">
+        </p>
+        <ul class="dadesMembre">
+            <li><b>Id:</b> {{ membre.id }}</li>
+            <li><b>Nom:</b> {{ membre.nom }}</li>
+            <li><b>Cognoms:</b> {{ membre.cognoms }}</li>
+            <li><b>Email:</b> {{ membre.email }}</li>
+            <li><b>Nota:</b> {{ membre.nota }}</li>
+            <li><b>Equip:</b> {{ membre.equip.nom }}</li>
+            <li><b>Imatge de perfil:</b>
+                <img class="imatgeMembre" src="{{ asset('img/' ~ membre.getImatgePerfil()) }}" alt="membre image">
+            </li>
+        </ul>
+        <p class="paragrafMembre"><a href="{{ path('inici') }}">Torna al inici</a></p>
+    {% else %}
+        <h1 id="titolMembre">Error inserint membre</h1>
+        <p class="paragrafMembre">
+            <img src="{{ asset('img/triste.png') }}" alt="membre image">
+            <span class="blocError">
+            {{ error }}
+        </span>
+        </p>
+        <p class="paragrafMembre"><a href="{{ path('inici') }}">Torna al inici</a></p>
+    {% endif %}
+{% endblock %}

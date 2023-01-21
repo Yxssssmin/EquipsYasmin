@@ -1,51 +1,104 @@
 h1#titolEquip {
-    width: 50%;
-    color: red;
-    border: solid red 1px;
-    margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:white;
+  width: 50%;
+  color: red;
+  border: solid red 1px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  background-color: white;
 }
 
-.paragrafEquip{
-    width: 80%;
-    border: solid black 1px;
-    margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:#f2e7c3;
+.paragrafEquip,
+.dadesEquip {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: solid black 1px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  background-color: #f2e7c3;
 }
 
-.imatgeEquip{
-    width: 400px;
-    margin: 10px;
+.imatgeEquip {
+  width: 400px;
+  margin: 10px;
 }
 
-body{
-    background-color:#EEE;
+body {
+  background-color: #EEE;
 }
 
 .listado {
-    background-color: bisque;
+  background-color: bisque;
 }
 
 .footer {
-    width: 80%;
-    border: solid black 1px;
-    margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:#f2e7c3;
+  width: 80%;
+  border: solid black 1px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  background-color: #f2e7c3;
 }
 
 .equipos {
-    width: 80%;
-    border: solid black 1px;
-    margin: 10px auto;
-    text-align:center;
-    padding:10px;
-    background-color:#f2e7c3;
+  width: 80%;
+  border: solid black 1px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  background-color: #f2e7c3;
 }
-   
-   
+
+.blocError {
+  background-color: #e7b26d;
+  border: 1px solid red;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.dadesMultiplesEquips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 0 auto;
+
+  width: 80%;
+
+  border: 1px solid black;
+  background-color: #f3e199;
+}
+
+.dadesMultiplesEquips ul {
+  border: 1px solid black;
+  background-color: #86cfda;
+  list-style: none;
+  width: 25%;
+  margin: 0 10px;
+}
+
+.dadesMultiplesEquips ul img {
+  width: 50%;
+}
+
+.titleEquip {
+  color: darkred;
+  font-size: 2em;
+}
+
+.dadesEquip .llistaInterna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dadesEquip .llistaInterna li {
+  background-color: #606060;
+  color: white;
+  list-style: none;
+}
