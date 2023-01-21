@@ -103,6 +103,11 @@ class EquipsController extends AbstractController {
         $equip = $repository->find($codi);
 
         if($equip) {
+//            $llistaMembres = "";
+//
+//            foreach ($resultat["membres"] as $membre) {
+//                $llistaMembres .= $membre . " ";
+//            }
 
             return $this->render('dades_equip.html.twig', array (
                 'equip' => $equip
