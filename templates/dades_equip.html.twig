@@ -16,12 +16,24 @@
             {% endif %}    
     </div>
     <div class="paragrafEquip">
+        <img src="{{ asset('assets/img/membre.png') }}" width="30px" heigth="30px"/>
+        <a href="{{ path('nou_membre') }}">Nou membre d'equip</a>
+    </div>
+    <div class="paragrafEquip">
         <ul class="dadesEquips">
             <li><strong class="titleEquip">{{ equip.nom }}</strong></li>
             <li><strong>Codi</strong>: {{ equip.id }}</li>
             <li><strong>Curs</strong>: {{ equip.curs }}</li>
             <li><strong>Cicle</strong>: {{ equip.cicle }}</li>
             <li><strong>Nota</strong>: {{ equip.nota }}</li>
+             <li><strong>Membres</strong>
+               <ul class="llistaInterna">
+                    {% for membre in equip.membres %}
+                        <li>{{ membre }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+
         </ul>
     </div>
     {% else %}
