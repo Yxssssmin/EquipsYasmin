@@ -17,7 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class MembresController extends AbstractController {
 
@@ -119,4 +121,54 @@ class MembresController extends AbstractController {
 
 
     }
+
+    #[Route('/membre/editar/{codi}', name:'editar_membre', requirements:['codi' => '\d+'])]
+    public function editar(Request $request, $codi, ManagerRegistry $doctrine) {
+        $repositori = $doctrine->getRepository(Membre::class);
+        $membre = $repositori->find($codi);
+        $formulari = $this->createFormBuilder($membre)
+        ->add('id', HiddenType::class)
+        ->add('nom', TextType::class)
+        ->add('cognoms', TextType::class)
+        ->add('email', TextType::class, array('label' => 'Correu electrònic'))
+        ->add('dataNaixement', DateType::class)
+        ->add('imatgePerfil', FileType::class, ['mapped' => false])
+        ->add('equip', EntityType::class, 
+            array('class' => Equip::class,'choice_label' => 'nom',
+        ))
+        ->add('nota', NumberType::class)
+        ->add('save', SubmitType::class,array('label' => 'Enviar'))
+        ->getForm();
+        $formulari->handleRequest($request);
+
+        if($formulari->isSubmitted() && $formulari->isValid()) {
+            $fitxer = $formulari->get('imatgePerfil')->getData();
+            if($fitxer) {
+                $nomFitxer = $fitxer->getClientOriginalName();
+                $directori = $this->getParameter('kernel.project_dir')."/public/img/membres";
+                try {
+                    $fitxer->move($directori,$nomFitxer);
+                } catch (FileException $e) {
+                    $error=$e->getMessage();
+                }
+
+                $membre->setImatgePerfil($nomFitxer);
+
+            } else {
+                $membre->setImatgePerfil('membrePerDefecte.png');
+            }
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($membre);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('inici');
+        }
+
+        return $this->render('editar_membre.html.twig', array(
+            'membre' => $membre,
+            'formulari' => $formulari->createView()
+        )); 
+}
+
 }
