@@ -182,14 +182,22 @@ class EquipsController extends AbstractController {
 
             $entityManager = $doctrine->getManager();
             $entityManager->persist($equip);
-            $entityManager->flush(); 
             
-            return $this->redirectToRoute('inici');
         } 
         
-        return $this->render('nou_equip.html.twig', array(
-            'formulari' => $formulari->createView()
-        ));
+        $success=true;
+        
+        try {
+            $entityManager->flush();
+            return $this->redirectToRoute('inici');
+        } catch (\Exception $e) {
+            return $this->render('nou_equip.html.twig' , [
+                'success' => false,
+
+                'formulari' => $formulari->createView()
+            ]);
+        }
+        
 
     }
 

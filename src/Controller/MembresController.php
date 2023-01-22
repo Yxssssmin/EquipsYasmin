@@ -109,15 +109,23 @@ class MembresController extends AbstractController {
 
             $entityManager = $doctrine->getManager();
             $entityManager->persist($membre);
-            $entityManager->flush(); 
-            
-            return $this->redirectToRoute('inici');
         
         } 
             
-        return $this->render('nou_membre.html.twig', array(
-            'formulari' => $formulari->createView()
-        ));   
+        $success=true;
+        
+        try {
+            $entityManager->flush();
+            return $this->render('inici.html.twig', [
+                'success' => true
+            ]);
+        } catch (\Exception $e) {
+            return $this->render('nou_membre.html.twig' , [
+                'success' => false,
+
+                'formulari' => $formulari->createView()
+            ]);
+        }
 
 
     }
