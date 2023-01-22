@@ -20,6 +20,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Form\MembreNouType;
 
 class MembresController extends AbstractController {
 
@@ -68,18 +69,7 @@ class MembresController extends AbstractController {
     public function nouMembre(Request $request, ManagerRegistry $doctrine) {
 
         $membre = new Membre();
-        $formulari = $this->createFormBuilder($membre)
-        ->add('nom', TextType::class)
-        ->add('cognoms', TextType::class)
-        ->add('email', TextType::class, array('label' => 'Correu electrònic'))
-        ->add('dataNaixement', DateType::class)
-        ->add('imatgePerfil', FileType::class)
-        ->add('equip', EntityType::class, 
-            array('class' => Equip::class,'choice_label' => 'nom',
-        ))
-        ->add('nota', NumberType::class)
-        ->add('save', SubmitType::class,array('label' => 'Enviar'))
-        ->getForm();
+        $formulari = $this->createForm(MembreNouType::class, $membre);
         $formulari->handleRequest($request);
 
         if($formulari->isSubmitted() && $formulari->isValid()) {
@@ -132,21 +122,10 @@ class MembresController extends AbstractController {
 
     #[Route('/membre/editar/{codi}', name:'editar_membre', requirements:['codi' => '\d+'])]
     public function editar(Request $request, $codi, ManagerRegistry $doctrine) {
+        
         $repositori = $doctrine->getRepository(Membre::class);
         $membre = $repositori->find($codi);
-        $formulari = $this->createFormBuilder($membre)
-        ->add('id', HiddenType::class)
-        ->add('nom', TextType::class)
-        ->add('cognoms', TextType::class)
-        ->add('email', TextType::class, array('label' => 'Correu electrònic'))
-        ->add('dataNaixement', DateType::class)
-        ->add('imatgePerfil', FileType::class, ['mapped' => false])
-        ->add('equip', EntityType::class, 
-            array('class' => Equip::class,'choice_label' => 'nom',
-        ))
-        ->add('nota', NumberType::class)
-        ->add('save', SubmitType::class,array('label' => 'Enviar'))
-        ->getForm();
+        $formulari = $this->createForm(MembreNouType::class, $membre);
         $formulari->handleRequest($request);
 
         if($formulari->isSubmitted() && $formulari->isValid()) {

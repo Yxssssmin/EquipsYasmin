@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Form\EquipNouType;
 
 
 class EquipsController extends AbstractController {
@@ -143,18 +144,8 @@ class EquipsController extends AbstractController {
     #[Route('/equip/nou', name:'nou_equip')]
     public function nou(Request $request, ManagerRegistry $doctrine) {
 
-        $success = true;
-        $error = null;
-
         $equip = new Equip();
-        $formulari = $this->createFormBuilder($equip)
-        ->add('nom', TextType::class)
-        ->add('cicle', TextType::class)
-        ->add('curs', TextType::class)
-        ->add('imatge', FileType::class,array('required' => false))
-        ->add('nota', NumberType::class)
-        ->add('save', SubmitType::class,array('label' => 'Enviar'))
-        ->getForm();
+        $formulari = $this->createForm(EquipNouType::class, $equip);
         $formulari->handleRequest($request);
 
         if($formulari->isSubmitted() && $formulari->isValid()) {
@@ -203,17 +194,10 @@ class EquipsController extends AbstractController {
 
     #[Route('/equip/editar/{codi}', name:'editar_equip', requirements:['codi' => '\d+'])]
     public function editar(Request $request, $codi, ManagerRegistry $doctrine) {
+        
         $repositori = $doctrine->getRepository(Equip::class);
         $equip = $repositori->find($codi);
-        $formulari = $this->createFormBuilder($equip)
-        ->add('id', HiddenType::class)
-        ->add('nom', TextType::class)
-        ->add('cicle', TextType::class)
-        ->add('curs', TextType::class)
-        ->add('imatge', FileType::class, ['mapped' => false])
-        ->add('nota', NumberType::class)
-        ->add('save', SubmitType::class,array('label' => 'Enviar'))
-        ->getForm();
+        $formulari = $this->createForm(EquipNouType::class, $equip);
         $formulari->handleRequest($request);
 
         if($formulari->isSubmitted() && $formulari->isValid()) {
