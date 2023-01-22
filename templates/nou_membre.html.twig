@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Membres{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsMembres.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <h1 id="titolMembre">Nou Membre</h1>
+    <div class="paragrafMembre">
+        {{ form_start(formulari) }}
+        {{ form_widget(formulari) }}
+        {{ form_end(formulari) }}
+    </div>
+{% endblock %}

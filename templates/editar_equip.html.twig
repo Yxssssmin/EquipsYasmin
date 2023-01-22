@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Editar Equips{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsEquips.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <h1 id="titolEquip">Editar Equip</h1>
+    <div class="paragrafEquip">
+        {{ form_start(formulari) }}
+        {{ form_widget(formulari) }}
+        {{ form_end(formulari) }}
+    </div>
+    <div class="paragrafEquip">
+        <p style="text-align:center;"> Imatge actual <p>
+        {% if equip %}
+            <img class="imatgeEquip" src="{{ asset("img/" ~ equip.imatge) }}" width="50px" heigth="50px" />
+        {% endif %} 
+    </div>
+{% endblock %}

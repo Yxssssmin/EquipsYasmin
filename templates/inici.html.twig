@@ -7,16 +7,23 @@
 {% block body %}
     <br><br><br><br>
     <h1 id="titolInici">Projecte Symfony Equips 2n DAW</h1>
-    <div class="paragrafInici">
-        <p>Inici programa gestió d'equips i membres del projecte 2n DAW.</p>
-        <a href="{{ path('dades_equip', {'codi':3}) }}"><img class="imatgeInici" src="{{ asset('./assets/img/equipo.png') }}" /></a>
+    <div class="blocText">
+        <p>Inici programa gestió d'equips i membres del projecte 2n DAW.</p><br>
+        <a href="{{ path('dades_equip', {'codi':1}) }}"><img class="imatgeInici" src="{{ asset('./assets/img/equipo.png') }}" /></a>
    </div>
-
+    <div class="blocText">
+        <img src="{{ asset('assets/img/membre.png') }}" width="30px" heigth="30px"/>
+        <a href="{{ path('nou_membre') }}">Nou membre d'equip</a>
+    </div>
     <h2 id="subtitolInici">Llistat d'equips</h2>
     <div class="blocText">
         <ul class="llistaInterna">
             {% for equip in equips %}
-                <li><b><a class="urlEquip" href="{{ path('dades_equip', {'codi': equip.id}) }}">{{ equip.nom }}</a></b></li>
+                <li><b><a class="urlEquip" href="{{ path('dades_equip', {'codi': equip.id}) }}">{{ equip.nom }}
+                </a></b>
+                <img class="imatgeEquip" href="{{ asset('assets/img/editar.png') }}" width="20px" heigth="20px"/>
+                
+                </li>
             {% endfor %}
         </ul>
     </div>

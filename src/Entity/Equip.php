@@ -17,18 +17,24 @@ class Equip
     private ?int $id = null;
 
     #[ORM\Column(length:50, unique:true)]
+    #[Assert\NotBlank]
     private ?string $nom = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\NotBlank]
     private ?string $cicle = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\NotBlank]
     private ?string $curs = null;
 
     #[ORM\Column(length: 255)]
     private ?string $imatge = null;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\LessThanOrEqual(10, message:'La nota ha de ser menor igual que 10')]
+    #[Assert\GreaterThanOrEqual(0, message:'La nota ha de ser major igual que 0')]
     private ?string $nota = null;
 
     #[ORM\OneToMany(mappedBy: 'equip', targetEntity: Membre::class)]
@@ -43,6 +49,13 @@ class Equip
     {
         return $this->id;
     }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 
     public function getNom(): ?string
     {

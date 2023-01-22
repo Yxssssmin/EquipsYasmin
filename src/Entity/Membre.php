@@ -15,30 +15,46 @@ class Membre
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
     private ?string $nom = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank]
     private ?string $cognoms = null;
 
     #[ORM\Column(length: 150, unique:true)]
+    #[Assert\NotBlank]
+    #[Assert\Email(message: "L'email {{ value }} no és vàlid")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $imatge_perfil = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank]
+    #[Assert\DateTime]
     private ?\DateTimeInterface $data_naixement = null;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\LessThanOrEqual(10, message:'La nota ha de ser menor igual que 10')]
+    #[Assert\GreaterThanOrEqual(0, message:'La nota ha de ser major igual que 0')]
     private ?string $nota = null;
 
     #[ORM\ManyToOne(inversedBy: 'membres')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Equip $equip = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getNom(): ?string
