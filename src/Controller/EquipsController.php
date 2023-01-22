@@ -14,7 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class EquipsController extends AbstractController {
@@ -186,6 +188,56 @@ class EquipsController extends AbstractController {
         } 
         
         return $this->render('nou_equip.html.twig', array(
+            'formulari' => $formulari->createView()
+        ));
+
+    }
+
+    #[Route('/equip/editar/{codi}', name:'editar_equip', requirements:['codi' => '\d+'])]
+    public function editar(Request $request, $codi, ManagerRegistry $doctrine) {
+        $repositori = $doctrine->getRepository(Equip::class);
+        $equip = $repositori->find($codi);
+        $formulari = $this->createFormBuilder($equip)
+        ->add('id', HiddenType::class)
+        ->add('nom', TextType::class)
+        ->add('cicle', TextType::class)
+        ->add('curs', TextType::class)
+        ->add('imatge', FileType::class, ['mapped' => false])
+        ->add('nota', NumberType::class)
+        ->add('save', SubmitType::class,array('label' => 'Enviar'))
+        ->getForm();
+        $formulari->handleRequest($request);
+
+        if($formulari->isSubmitted() && $formulari->isValid()) {
+            $fitxer = $formulari->get('imatge')->getData();
+            if($fitxer) {
+                $nomFitxer = $fitxer->getClientOriginalName();
+                $directori = $this->getParameter('kernel.project_dir')."/public/img/";
+                try {
+                    $fitxer->move($directori,$nomFitxer);
+                } catch (FileException $e) {
+                    $error=$e->getMessage();
+                }
+
+                $equip->setImatge($nomFitxer);
+
+            } else {
+                $equip->setImatge('equipPerDefecte.png');
+            }
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($equip);
+            $entityManager->flush();
+
+            return new RedirectResponse($this->generateUrl('dades_equip', array(
+                'equip' => $equip,
+                'codi' => $codi,
+                'fitxer' => $fitxer
+            )));
+        }
+
+        return $this->render('editar_equip.html.twig', array (
+            'equip' => $equip,
             'formulari' => $formulari->createView()
         ));
 

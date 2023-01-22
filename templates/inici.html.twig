@@ -16,7 +16,11 @@
     <div class="blocText">
         <ul class="llistaInterna">
             {% for equip in equips %}
-                <li><b><a class="urlEquip" href="{{ path('dades_equip', {'codi': equip.id}) }}">{{ equip.nom }}</a></b></li>
+                <li><b><a class="urlEquip" href="{{ path('dades_equip', {'codi': equip.id}) }}">{{ equip.nom }}
+                </a></b>
+                <img class="imatgeEquip" href="{{ asset('assets/img/editar.png') }}" width="20px" heigth="20px"/>
+                
+                </li>
             {% endfor %}
         </ul>
     </div>

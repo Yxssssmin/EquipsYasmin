@@ -33,6 +33,8 @@
 
     <div class="footer">
         <img src="{{ asset('./assets/img/logocasa.png') }}" width="40px heigth="70px" /><a href="{{ path('inici') }}">Torna a l'inici</a>
+        <img class="imatgeEquip" href="{{ asset('assets/img/editar.png') }}" width="20px" heigth="20px"/>
+        <a class="urlEquip" href="{{ path('editar_equip', {'codi': equip.id}) }}"> Edita l'equip </a>
     </div>
 
 {% endblock %}
