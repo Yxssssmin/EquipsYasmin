@@ -10,6 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 class EquipsController extends AbstractController {
@@ -98,11 +103,6 @@ class EquipsController extends AbstractController {
         $equip = $repository->find($codi);
 
         if($equip) {
-//            $llistaMembres = "";
-//
-//            foreach ($resultat["membres"] as $membre) {
-//                $llistaMembres .= $membre . " ";
-//            }
 
             return $this->render('dades_equip.html.twig', array (
                 'equip' => $equip
@@ -137,6 +137,60 @@ class EquipsController extends AbstractController {
             'equips' => $updatedEquips
         ]);
     }
+
+    #[Route('/equip/nou', name:'nou_equip')]
+    public function nou(Request $request, ManagerRegistry $doctrine) {
+
+        $success = true;
+        $error = null;
+
+        $equip = new Equip();
+        $formulari = $this->createFormBuilder($equip)
+        ->add('nom', TextType::class)
+        ->add('cicle', TextType::class)
+        ->add('curs', TextType::class)
+        ->add('imatge', FileType::class,array('required' => false))
+        ->add('nota', NumberType::class)
+        ->add('save', SubmitType::class,array('label' => 'Enviar'))
+        ->getForm();
+        $formulari->handleRequest($request);
+
+        if($formulari->isSubmitted() && $formulari->isValid()) {
+            $fitxer = $formulari->get('imatge')->getData();
+            if($fitxer) {
+                $nomFitxer = $fitxer->getClientOriginalName();
+                $directori = $this->getParameter('kernel.project_dir')."/public/img/";
+                try {
+                    $fitxer->move($directori,$nomFitxer);
+                } catch (FileException $e) {
+                    $error=$e->getMessage();
+                }
+
+                $equip->setImatge($nomFitxer);
+
+            } else {
+                $equip->setImatge('equipPerDefecte.png');
+            }
+
+            $equip->setNom($formulari->get('nom')->getData());
+            $equip->setCicle($formulari->get('cicle')->getData());
+            $equip->setCurs($formulari->get('curs')->getData());
+            $equip->setNota($formulari->get('nota')->getData());
+            $equip->setImatge($formulari->get('imatge')->getData());
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($equip);
+            $entityManager->flush(); 
+            
+            return $this->redirectToRoute('inici');
+        } 
+        
+        return $this->render('nou_equip.html.twig', array(
+            'formulari' => $formulari->createView()
+        ));
+
+    }
+
         
 }
     

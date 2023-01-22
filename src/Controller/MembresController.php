@@ -8,7 +8,16 @@ use App\Service\ServeiDadesEquips;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class MembresController extends AbstractController {
 
@@ -51,5 +60,63 @@ class MembresController extends AbstractController {
             'error' => $error,
             'membre' => $membre
         ));
+    }
+
+    #[Route('/membre/nou', name:'nou_membre')]
+    public function nouMembre(Request $request, ManagerRegistry $doctrine) {
+
+        $membre = new Membre();
+        $formulari = $this->createFormBuilder($membre)
+        ->add('nom', TextType::class)
+        ->add('cognoms', TextType::class)
+        ->add('email', TextType::class, array('label' => 'Correu electrònic'))
+        ->add('dataNaixement', DateType::class)
+        ->add('imatgePerfil', FileType::class)
+        ->add('equip', EntityType::class, 
+            array('class' => Equip::class,'choice_label' => 'nom',
+        ))
+        ->add('nota', NumberType::class)
+        ->add('save', SubmitType::class,array('label' => 'Enviar'))
+        ->getForm();
+        $formulari->handleRequest($request);
+
+        if($formulari->isSubmitted() && $formulari->isValid()) {
+            $fitxer = $formulari->get('imatgePerfil')->getData();
+            if($fitxer) {
+                $nomFitxer = $fitxer->getClientOriginalName();
+                $directori = $this->getParameter('kernel.project_dir')."/public/img/membres";
+                try {
+                    $fitxer->move($directori,$nomFitxer);
+                } catch (FileException $e) {
+                    $error=$e->getMessage();
+                }
+
+                $membre->setImatgePerfil($nomFitxer);
+
+            } else {
+                $membre->setImatgePerfil('membrePerDefecte.png');
+            }
+
+            $membre->setNom($formulari->get('nom')->getData());
+            $membre->setCognoms($formulari->get('cognoms')->getData());
+            $membre->setEmail($formulari->get('email')->getData());
+            $membre->setDataNaixement($formulari->get('dataNaixement')->getData());
+            $membre->setImatgePerfil($formulari->get('imatgePerfil')->getData());
+            $membre->setEquip($formulari->get('equip')->getData());
+            $membre->setNota($formulari->get('nota')->getData());
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($membre);
+            $entityManager->flush(); 
+            
+            return $this->redirectToRoute('inici');
+        
+        } 
+            
+        return $this->render('nou_membre.html.twig', array(
+            'formulari' => $formulari->createView()
+        ));   
+
+
     }
 }

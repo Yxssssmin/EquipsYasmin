@@ -1,4 +1,4 @@
-#titolMembre {
+h1#titolMembre {
     width: 50%;
     color: red;
     border: solid red 1px;
@@ -6,7 +6,7 @@
     text-align: center;
     padding: 10px;
     background-color: white;
-}
+  }
 
 .paragrafMembre,
 .dadesMembre {
