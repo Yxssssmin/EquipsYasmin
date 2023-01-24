@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
+use Jenssegers\Date\Date;
 
 class IniciController extends AbstractController {
     
@@ -28,6 +29,7 @@ class IniciController extends AbstractController {
             'equips' => $this->dades->findAll()
         ));
     }
+
 
 }
 
