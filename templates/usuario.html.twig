@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Login Equips{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsUsuari.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <h1 id="titolUsuari">Usuaris Projecte Equips 2n DAW</h1>
+    <h2 id="subtitolUsuari">Llistat d'usuaris</h2>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th> Id </th>
+                <th> Username </th>
+                <th> Password </th>
+                <th> Roles </th>
+                <th> Editar </th>
+                <th> Eliminar </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if usuari %}
+            <tr>
+                <td>{{ usuari.id }} </td>
+                <td>{{ usuari.username }} </td>
+                
+               
+                <td><img class="imatgeUsuari" href="{{ asset('assets/img/editar.png') }}" width="20px" heigth="20px"/></td>
+                <td><img class="imatgeUsuari" href="{{ asset('assets/img/borrar.png') }}" width="20px" heigth="20px"/></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

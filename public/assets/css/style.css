@@ -13,6 +13,19 @@ body {
   color: #444444;
 }
 
+.paragrafLogout {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: solid black 1px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  background-color: #f2e7c3;
+}
+
 a {
   text-decoration: none;
   color: #d9232d;

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Login Equips{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsLogin.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<br><br><br><br>
+    <h1 id="titolLogin">Login</h1>
+    <div class="paragrafLogin">
+    {% if error %}
+        <div style="color: red;">{{ error.messageKey }}</div>
+    {% endif %}
+    <br>
+    <form action="{{ path('login') }}" method="post">
+        <label for="username">Login:</label>
+        <input type="text" id="username" name="_username" value="{{ lastUsername }}" />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password" />
+        <button type="submit">Entrar</button>
+    </form>
+    </div>
+{% endblock %}

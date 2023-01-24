@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(216, 216, 216); 
+}
+h1#titolLogin {
+    width: 50%;
+    color: red;
+    border: solid red 1px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+}
+
+.paragrafLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 80%;
+    border: solid black 1px;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #f2e7c3;
+}

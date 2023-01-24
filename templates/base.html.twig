@@ -40,9 +40,10 @@
 </head>
 
 
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
+
+
     <div class="container d-flex align-items-center">
 
       <h1 class="logo me-auto"><a href="index.html">Sailor</a></h1>
@@ -58,16 +59,18 @@
               <li><a href="about.html">About</a></li>
               <li><a href="team.html">Team</a></li>
               <li><a href="testimonials.html">Testimonials</a></li>
-
+              {% if is_granted('ROLE_ADMIN') %}
+              <li><a href="{{ path('usuari') }}">Usuaris</a></li>
               <li class="dropdown"><a href="#"><span>Inserir</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="{{ path('nou_equip') }}">Equip</a></li>
                   <li><a href="{{ path('inserirmultiple_equip') }}">Múltiples Equips</a></li>
                   <li><a href="{{ path('nou_membre') }}">Membre</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="{{ path('nou_usuari') }}">Usuari</a></li>
                   <li><a href="#">Deep Drop Down 5</a></li>
                 </ul>
               </li>
+              {% endif %}
             </ul>
           </li>
           <li><a href="services.html">Services</a></li>
@@ -82,8 +85,25 @@
       </nav><!-- .navbar -->
 
     </div>
+
   </header><!-- End Header -->
-{% block body %}
+  <br><br><br><br><br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      <div style="  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  border: solid black 1px;
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  background-color: #f2e7c3;">
+        Benvingut/da, {{ app.user.username }}
+        <a href ="{{ path('logout') }}">Tancar sessió</a>
+      </div>
+    {% endif %}
+{% block body %} 
+
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
