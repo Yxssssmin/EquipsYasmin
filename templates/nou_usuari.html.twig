@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Usuaris{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('./assets/css/estilsUsuari.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <h1 id="titolUsuari">Nou usuari</h1>
+    <div class="paragrafUsuari">
+        {{ form_start(formulari) }}
+        {{ form_widget(formulari) }}
+        {{ form_end(formulari) }}
+    </div>
+{% endblock %}
